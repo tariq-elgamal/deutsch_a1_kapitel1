@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch A1 – Kapitel 1: Sich vorstellen 🇩🇪</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1923;
+    --card: #1a2535;
+    --card2: #212f45;
+    --accent: #f7c948;
+    --accent2: #3ecf8e;
+    --accent3: #e05c5c;
+    --accent4: #5b9cf6;
+    --text: #f0f4ff;
+    --muted: #7a8fa6;
+    --radius: 18px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Stars background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 55%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 25%, rgba(255,255,255,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 70%, rgba(255,255,255,0.15) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.3) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    text-align: center;
+    padding: 40px 20px 20px;
+    z-index: 1;
+  }
+  .flag { font-size: 3rem; margin-bottom: 6px; }
+  header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--accent);
+    text-shadow: 0 0 30px rgba(247,201,72,0.4);
+    letter-spacing: 1px;
+  }
+  header p { color: var(--muted); font-size: 1rem; margin-top: 4px; }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    max-width: 600px;
+    margin: 16px auto;
+    background: var(--card);
+    border-radius: 99px;
+    height: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 99px;
+    transition: width 0.5s ease;
+  }
+  .progress-label {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  /* SCORE */
+  .score-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 10px 0 20px;
+    z-index: 1;
+    position: relative;
+  }
+  .score-box {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 8px 22px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .score-box span.num { color: var(--accent); font-size: 1.3rem; }
+  .score-box.lives span.num { color: var(--accent3); }
+  .score-box.streak span.num { color: var(--accent2); }
+
+  /* GAME AREA */
+  #game-area {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ROUNDS NAV */
+  .rounds-nav {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .round-btn {
+    background: var(--card);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 99px;
+    padding: 7px 18px;
+    color: var(--muted);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .round-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .round-btn.active { background: var(--accent); color: #0f1923; border-color: var(--accent); }
+  .round-btn.done { border-color: var(--accent2); color: var(--accent2); }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 20px;
+    animation: slideIn 0.35s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .q-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent4);
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: clamp(1.15rem, 3vw, 1.45rem);
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .q-hint {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 22px;
+  }
+
+  /* CHOICES */
+  .choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 500px) { .choices { grid-template-columns: 1fr; } }
+  .choice-btn {
+    background: var(--card2);
+    border: 2px solid rgba(255,255,255,0.07);
+    border-radius: 13px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .choice-btn:hover:not(:disabled) {
+    border-color: var(--accent4);
+    background: rgba(91,156,246,0.12);
+    transform: translateY(-2px);
+  }
+  .choice-btn.correct {
+    border-color: var(--accent2) !important;
+    background: rgba(62,207,142,0.18) !important;
+    color: var(--accent2);
+  }
+  .choice-btn.wrong {
+    border-color: var(--accent3) !important;
+    background: rgba(224,92,92,0.18) !important;
+    color: var(--accent3);
+  }
+  .choice-btn:disabled { cursor: default; }
+
+  /* TEXT INPUT */
+  .text-input-wrap {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .text-input-wrap input {
+    flex: 1;
+    background: var(--card2);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 12px 18px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem;
+    outline: none;
+    transition: border 0.2s;
+  }
+  .text-input-wrap input:focus { border-color: var(--accent4); }
+  .text-input-wrap input.correct-i { border-color: var(--accent2); background: rgba(62,207,142,0.1); }
+  .text-input-wrap input.wrong-i { border-color: var(--accent3); background: rgba(224,92,92,0.1); }
+  .submit-btn {
+    background: var(--accent);
+    color: #0f1923;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 22px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .submit-btn:hover { transform: scale(1.04); }
+  .submit-btn:disabled { opacity: 0.5; cursor: default; }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 14px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    display: none;
+    animation: pop 0.25s ease;
+  }
+  @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .feedback.show { display: block; }
+  .feedback.ok { background: rgba(62,207,142,0.15); color: var(--accent2); border: 1px solid rgba(62,207,142,0.3); }
+  .feedback.bad { background: rgba(224,92,92,0.15); color: #ff8a8a; border: 1px solid rgba(224,92,92,0.3); }
+
+  /* NEXT BUTTON */
+  .next-btn {
+    display: none;
+    margin-top: 16px;
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent4), #a78bfa);
+    border: none;
+    border-radius: 13px;
+    padding: 14px;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .next-btn.show { display: block; }
+  .next-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(91,156,246,0.35); }
+
+  /* SECTION INTRO */
+  .section-intro {
+    background: linear-gradient(135deg, var(--card), var(--card2));
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.07);
+    text-align: center;
+  }
+  .section-intro .icon { font-size: 2.8rem; margin-bottom: 10px; }
+  .section-intro h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.7rem;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .section-intro p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+  /* VOCAB CARD (flashcard) */
+  .flashcard {
+    perspective: 1000px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .flashcard-inner {
+    width: 100%;
+    min-height: 160px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s;
+  }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    width: 100%;
+    min-height: 160px;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .fc-front {
+    background: linear-gradient(135deg, #1e3a5f, #1a2535);
+    border: 1px solid rgba(91,156,246,0.3);
+  }
+  .fc-back {
+    background: linear-gradient(135deg, #1a3a2a, #1a2535);
+    border: 1px solid rgba(62,207,142,0.3);
+    transform: rotateY(180deg);
+  }
+  .fc-de { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+  .fc-en { font-size: 1.2rem; font-weight: 700; color: var(--accent2); }
+  .fc-tag { font-size: 0.75rem; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 1.5px; }
+  .fc-tap { font-size: 0.78rem; color: var(--muted); margin-top: 10px; }
+
+  /* MATCHING */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .match-item {
+    background: var(--card2);
+    border: 2px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 13px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.18s;
+    text-align: center;
+  }
+  .match-item:hover:not(.matched):not(.locked) { border-color: var(--accent4); background: rgba(91,156,246,0.1); }
+  .match-item.selected { border-color: var(--accent); background: rgba(247,201,72,0.12); color: var(--accent); }
+  .match-item.matched { border-color: var(--accent2); background: rgba(62,207,142,0.13); color: var(--accent2); cursor: default; }
+  .match-item.wrong-match { border-color: var(--accent3); animation: shake 0.3s ease; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  /* FILL BLANK */
+  .fill-blank-input {
+    background: var(--card2);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 9px 14px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    width: 150px;
+    outline: none;
+    transition: border 0.2s;
+    display: inline-block;
+    text-align: center;
+    font-weight: 700;
+  }
+  .fill-blank-input:focus { border-color: var(--accent4); }
+  .fill-blank-input.ok { border-color: var(--accent2); background: rgba(62,207,142,0.1); }
+  .fill-blank-input.bad { border-color: var(--accent3); background: rgba(224,92,92,0.1); }
+
+  /* CONGRATS */
+  .congrats-screen {
+    display: none;
+    text-align: center;
+    padding: 50px 20px;
+    animation: slideIn 0.4s ease;
+  }
+  .congrats-screen.show { display: block; }
+  .congrats-screen .trophy { font-size: 5rem; margin-bottom: 16px; animation: bounce 1s infinite alternate; }
+  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-14px); } }
+  .congrats-screen h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.4rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .congrats-screen p { color: var(--muted); font-size: 1rem; margin-bottom: 24px; }
+  .final-score-box {
+    display: inline-block;
+    background: var(--card);
+    border-radius: 18px;
+    padding: 20px 40px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(247,201,72,0.2);
+  }
+  .final-score-box .big { font-size: 3.5rem; font-weight: 800; color: var(--accent); }
+  .final-score-box small { display: block; color: var(--muted); font-size: 0.85rem; }
+  .restart-btn {
+    background: var(--accent);
+    color: #0f1923;
+    border: none;
+    border-radius: 13px;
+    padding: 14px 40px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .restart-btn:hover { transform: scale(1.04); }
+
+  /* XP POPUP */
+  .xp-popup {
+    position: fixed;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    color: var(--accent2);
+    pointer-events: none;
+    z-index: 999;
+    animation: xpFly 1.1s ease forwards;
+    text-shadow: 0 2px 10px rgba(62,207,142,0.5);
+  }
+  @keyframes xpFly {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-90px) scale(1.4); }
+  }
+
+  /* RULE CARD */
+  .rule-card {
+    background: linear-gradient(135deg, #1e2d45, var(--card2));
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--accent4);
+    font-size: 0.93rem;
+    line-height: 1.7;
+  }
+  .rule-card h4 { color: var(--accent4); font-weight: 800; margin-bottom: 8px; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+  .rule-card table { border-collapse: collapse; width: 100%; margin-top: 8px; }
+  .rule-card td, .rule-card th { padding: 5px 12px; text-align: left; }
+  .rule-card th { color: var(--accent); font-weight: 700; font-size: 0.82rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .rule-card td { color: var(--text); }
+  .rule-card td:first-child { color: var(--muted); }
+
+  /* CHIP */
+  .chip { display: inline-block; background: rgba(247,201,72,0.12); border: 1px solid rgba(247,201,72,0.25); border-radius: 99px; padding: 2px 12px; font-size: 0.8rem; color: var(--accent); font-weight: 700; margin: 2px; }
+
+  /* TOOLTIP on correct answer */
+  .answer-reveal { color: var(--accent2); font-weight: 700; }
+
+  /* COMBO badge */
+  .combo-badge {
+    display: none;
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--accent), #ff9f43);
+    color: #0f1923;
+    border-radius: 14px;
+    padding: 10px 18px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    z-index: 100;
+    box-shadow: 0 6px 20px rgba(247,201,72,0.4);
+    animation: popIn 0.3s ease;
+  }
+  @keyframes popIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .q-card { padding: 20px 16px; }
+    .match-grid { grid-template-columns: 1fr; }
+    .choices { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="combo-badge" id="combo-badge">🔥 Combo!</div>
+
+<header>
+  <div class="flag">🇩🇪</div>
+  <h1>Kapitel 1 — Sich vorstellen</h1>
+  <p>German A1+ · Begegnungen · Introducing Yourself</p>
+</header>
+
+<div style="position:relative;z-index:1;">
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+  <div class="progress-label" id="progress-label">Round 1 of 6</div>
+</div>
+
+<div class="score-row">
+  <div class="score-box">⭐ <span class="num" id="score-disp">0</span> pts</div>
+  <div class="score-box lives">❤️ <span class="num" id="lives-disp">3</span></div>
+  <div class="score-box streak">🔥 <span class="num" id="streak-disp">0</span>x</div>
+</div>
+
+<div id="game-area"></div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const ROUNDS = [
+  { id: 'greetings',    title: 'Greetings',       icon: '👋', type: 'flashcards+mcq' },
+  { id: 'intro',        title: 'Sich vorstellen', icon: '🙋', type: 'mcq' },
+  { id: 'laender',      title: 'Länder & Städte', icon: '🌍', type: 'matching+mcq' },
+  { id: 'berufe',       title: 'Berufe',          icon: '💼', type: 'mcq+fill' },
+  { id: 'verben',       title: 'Verben',           icon: '📝', type: 'fill' },
+  { id: 'sprachen',     title: 'Sprachen',         icon: '🗣️', type: 'mcq+fill' },
+];
+
+const FLASHCARDS_GREET = [
+  { de: 'Guten Morgen', en: 'Good morning', tag: 'greeting' },
+  { de: 'Guten Tag', en: 'Good day / Hello', tag: 'greeting' },
+  { de: 'Hallo', en: 'Hello (informal)', tag: 'greeting' },
+  { de: 'Guten Abend', en: 'Good evening', tag: 'greeting' },
+  { de: 'Ich heiße …', en: 'My name is … (lit. I am called)', tag: 'intro phrase' },
+  { de: 'Mein Name ist …', en: 'My name is …', tag: 'intro phrase' },
+  { de: 'Ich bin … Jahre alt', en: 'I am … years old', tag: 'intro phrase' },
+  { de: 'Ich wohne in …', en: 'I live in …', tag: 'intro phrase' },
+];
+
+const MCQ_INTRO = [
+  {
+    q: 'Franziska says: "Ich bin Lehrerin." What is her job?',
+    hint: '👩‍🏫 Think about the German word for teacher (female)',
+    options: ['Doctor', 'Teacher', 'Engineer', 'Programmer'],
+    correct: 1,
+    explain: '"Lehrerin" = female teacher (Lehrer = male teacher)'
+  },
+  {
+    q: 'How do you say "My first name is Peter" in German?',
+    hint: '📋 Vorname = first name',
+    options: ['Mein Familienname ist Peter.', 'Mein Vorname ist Peter.', 'Ich heiße Heinemann.', 'Ich bin Peter alt.'],
+    correct: 1,
+    explain: '"Mein Vorname" = my first name. Familienname = last name.'
+  },
+  {
+    q: 'Sarah says: "Ich studiere in Paris Medizin." What does she study?',
+    hint: '🏥',
+    options: ['Law', 'Mathematics', 'Medicine', 'Architecture'],
+    correct: 2,
+    explain: '"Medizin" = medicine. She studies medicine in Paris.'
+  },
+  {
+    q: 'Which phrase means "I speak a little Spanish"?',
+    hint: '💬 "ein bisschen" = a little',
+    options: ['Ich spreche sehr gut Spanisch.', 'Ich spreche kein Spanisch.', 'Ich spreche ein bisschen Spanisch.', 'Ich lerne jetzt Spanisch.'],
+    correct: 2,
+    explain: '"ein bisschen" = a little bit. "sehr gut" = very well.'
+  },
+  {
+    q: 'What does "Meine Muttersprache ist Deutsch" mean?',
+    hint: '🧬 Muttersprache = mother tongue',
+    options: ['I speak German badly.', 'My mother speaks German.', 'My native language is German.', 'I learn German now.'],
+    correct: 2,
+    explain: '"Muttersprache" literally = mother language = native language.'
+  },
+];
+
+const MATCHING_LAENDER = [
+  { de: 'Frankreich', en: 'France' },
+  { de: 'Großbritannien', en: 'Great Britain' },
+  { de: 'Spanien', en: 'Spain' },
+  { de: 'China', en: 'China' },
+  { de: 'Japan', en: 'Japan' },
+  { de: 'Österreich', en: 'Austria' },
+];
+
+const MCQ_LAENDER = [
+  {
+    q: 'Peter Heinemann kommt aus Marburg. Which country is that?',
+    hint: '🇩🇪',
+    options: ['Österreich', 'Schweiz', 'Deutschland', 'Polen'],
+    correct: 2,
+    explain: 'Marburg is a city in Germany (Deutschland).'
+  },
+  {
+    q: 'Woher kommt Madame Tussaud?',
+    hint: '🗼 Think Paris…',
+    options: ['England', 'Frankreich', 'Deutschland', 'Belgien'],
+    correct: 1,
+    explain: 'Madame Tussaud kommt aus Frankreich (France).'
+  },
+  {
+    q: '"Ich komme aus der Türkei." Why is "der" used here?',
+    hint: '📌 Some countries need an article in German',
+    options: ['All countries use der', 'Türkei is a feminine noun', 'It\'s a mistake', 'Turkish grammar rule'],
+    correct: 1,
+    explain: 'In German, some countries are feminine (die Türkei, die Schweiz, die Ukraine) and need "der" in the dative case after "aus".'
+  },
+  {
+    q: 'In which country do they speak Portugiesisch?',
+    hint: '🌊 Atlantic coast',
+    options: ['Spanien', 'Brasilien & Portugal', 'Mexiko', 'Chile'],
+    correct: 1,
+    explain: 'Portuguese (Portugiesisch) is spoken in Portugal and Brazil (Brasilien).'
+  },
+];
+
+const MCQ_BERUFE = [
+  {
+    q: 'Peter Heinemann says "Ich bin Informatiker." What is his profession?',
+    hint: '💻 Informatik = Computer Science',
+    options: ['Lawyer', 'Computer Scientist / IT specialist', 'Architect', 'Mathematician'],
+    correct: 1,
+    explain: '"Informatiker" = IT professional / computer scientist (from Informatik = computer science).'
+  },
+  {
+    q: 'What is the female form of "Arzt"?',
+    hint: '👩‍⚕️',
+    options: ['Arztin', 'Ärztin', 'Artzin', 'Ärzt'],
+    correct: 1,
+    explain: 'Arzt (m) → Ärztin (f). Note the umlaut Ä. Many professions add -in for female form.'
+  },
+  {
+    q: 'Johann studiert Chemie. Was ist er später?',
+    hint: '🧪',
+    options: ['Physiker', 'Ingenieur', 'Chemiker', 'Journalist'],
+    correct: 2,
+    explain: 'Chemie → Chemiker. The field of study often directly becomes the profession name.'
+  },
+  {
+    q: 'Which profession matches someone who serves food in a restaurant?',
+    hint: '🍽️',
+    options: ['Mechaniker', 'Taxifahrer', 'Kellner / Kellnerin', 'Polizist'],
+    correct: 2,
+    explain: '"Kellner" (m) / "Kellnerin" (f) = waiter / waitress.'
+  },
+];
+
+const FILL_VERBEN = [
+  { sentence: 'Ich ___ Franziska Binder.', verb: 'heißen', answer: 'heiße', pronoun: 'ich' },
+  { sentence: 'Peter ___ aus Deutschland.', verb: 'kommen', answer: 'kommt', pronoun: 'er' },
+  { sentence: 'Sarah ___ in Paris.', verb: 'wohnen', answer: 'wohnt', pronoun: 'sie' },
+  { sentence: 'Ich ___ Lehrerin.', verb: 'sein', answer: 'bin', pronoun: 'ich' },
+  { sentence: 'Woher ___ Sie?', verb: 'kommen', answer: 'kommen', pronoun: 'Sie (formal)' },
+  { sentence: 'Wie ___ du?', verb: 'heißen', answer: 'heißt', pronoun: 'du' },
+  { sentence: 'Was ___ Sie von Beruf?', verb: 'sein', answer: 'sind', pronoun: 'Sie (formal)' },
+  { sentence: 'Ich ___ Medizin.', verb: 'studieren', answer: 'studiere', pronoun: 'ich' },
+];
+
+const MCQ_SPRACHEN = [
+  {
+    q: 'In Griechenland spricht man …',
+    hint: '🏛️',
+    options: ['Russisch', 'Griechisch', 'Türkisch', 'Rumänisch'],
+    correct: 1,
+    explain: 'In Greece (Griechenland) people speak Greek (Griechisch).'
+  },
+  {
+    q: 'What is the correct conjugation? "du ___ Japanisch" (sprechen)',
+    hint: '⚠️ sprechen has a vowel change for du/er/sie',
+    options: ['sprechen', 'sprechst', 'sprichst', 'spricht'],
+    correct: 2,
+    explain: '"du sprichst" — sprechen has an irregular stem change: e→i for du/er/sie forms.'
+  },
+  {
+    q: '"Ich spreche sehr gut Englisch." How well does this person speak English?',
+    hint: '🎯',
+    options: ['A little', 'Not at all', 'Very well', 'Badly'],
+    correct: 2,
+    explain: '"sehr gut" = very well. "ein bisschen" = a little. "gar nicht" = not at all.'
+  },
+  {
+    q: 'In den USA spricht man…',
+    hint: '🇺🇸',
+    options: ['Französisch', 'Englisch', 'Spanisch', 'Portugiesisch'],
+    correct: 1,
+    explain: 'In the USA people mainly speak English (Englisch).'
+  },
+];
+
+const FILL_SPRACHEN = [
+  { sentence: 'In Japan spricht man ___.', answer: 'Japanisch', hint: 'country → language (add -isch)' },
+  { sentence: 'In Russland spricht man ___.', answer: 'Russisch', hint: 'Russland → ?' },
+  { sentence: 'In China spricht man ___.', answer: 'Chinesisch', hint: 'China → ? (irregular)' },
+  { sentence: 'In Frankreich spricht man ___.', answer: 'Französisch', hint: 'Frankreich → ?' },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+  currentRound: 0,
+  score: 0,
+  lives: 3,
+  streak: 0,
+  stepInRound: 0,
+  answered: false,
+  matchSel: null,
+  matchDone: 0,
+  shuffledFc: [],
+  fcIndex: 0,
+  roundsDone: [],
+};
+
+// ============================================================
+// HELPERS
+// ============================================================
+function shuffle(arr) {
+  let a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function updateHUD() {
+  document.getElementById('score-disp').textContent = state.score;
+  document.getElementById('lives-disp').textContent = state.lives;
+  document.getElementById('streak-disp').textContent = state.streak;
+  const pct = (state.currentRound / ROUNDS.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `Round ${state.currentRound + 1} of ${ROUNDS.length}`;
+}
+
+function spawnXP(pts, x, y) {
+  const el = document.createElement('div');
+  el.className = 'xp-popup';
+  el.textContent = `+${pts}`;
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1200);
+}
+
+function showCombo(n) {
+  if (n < 3) return;
+  const el = document.getElementById('combo-badge');
+  el.textContent = `🔥 ${n}x Combo!`;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 1600);
+}
+
+function awardPoints(pts, event) {
+  state.score += pts;
+  state.streak++;
+  showCombo(state.streak);
+  updateHUD();
+  if (event) spawnXP(pts, event.clientX, event.clientY);
+}
+
+function penalty() {
+  state.lives = Math.max(0, state.lives - 1);
+  state.streak = 0;
+  updateHUD();
+}
+
+// ============================================================
+// RENDER ENGINE
+// ============================================================
+const area = document.getElementById('game-area');
+
+function renderRoundNav() {
+  const wrap = document.createElement('div');
+  wrap.className = 'rounds-nav';
+  ROUNDS.forEach((r, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'round-btn' + (i === state.currentRound ? ' active' : '') + (state.roundsDone.includes(i) ? ' done' : '');
+    btn.textContent = r.icon + ' ' + r.title;
+    btn.onclick = () => {
+      state.currentRound = i;
+      state.stepInRound = 0;
+      state.answered = false;
+      renderRound();
+    };
+    wrap.appendChild(btn);
+  });
+  return wrap;
+}
+
+function renderRound() {
+  area.innerHTML = '';
+  area.appendChild(renderRoundNav());
+  updateHUD();
+
+  const r = ROUNDS[state.currentRound];
+
+  if (r.id === 'greetings')  renderGreetingsRound();
+  else if (r.id === 'intro') renderMCQRound(MCQ_INTRO, 'Sich vorstellen – Quiz', '🙋');
+  else if (r.id === 'laender') renderLaenderRound();
+  else if (r.id === 'berufe')  renderBerufeRound();
+  else if (r.id === 'verben')  renderVerbenRound();
+  else if (r.id === 'sprachen') renderSprachenRound();
+}
+
+// ============================================================
+// ROUND 1: GREETINGS (Flashcards + MCQ)
+// ============================================================
+function renderGreetingsRound() {
+  const intro = makeIntro('👋', 'Greetings & Introductions', 'Flip the flashcards to learn key phrases, then test yourself!');
+  area.appendChild(intro);
+
+  // Grammar rule box
+  const rule = document.createElement('div');
+  rule.className = 'rule-card';
+  rule.innerHTML = `<h4>📌 Greetings by time of day</h4>
+    <table>
+      <tr><th>Time</th><th>Greeting</th><th>Meaning</th></tr>
+      <tr><td>Morning</td><td>Guten Morgen</td><td>Good morning</td></tr>
+      <tr><td>Day</td><td>Guten Tag / Hallo</td><td>Good day / Hello</td></tr>
+      <tr><td>Evening</td><td>Guten Abend</td><td>Good evening</td></tr>
+    </table>
+    <br>
+    <b style="color:var(--accent4)">Formal vs Informal:</b><br>
+    Formal: <span class="chip">Sie</span> "Wie heißen <b>Sie</b>?" &nbsp; Informal: <span class="chip">du</span> "Wie heißt <b>du</b>?"`;
+  area.appendChild(rule);
+
+  // Flashcards
+  const fcLabel = document.createElement('div');
+  fcLabel.className = 'q-label';
+  fcLabel.style.marginBottom = '10px';
+  fcLabel.textContent = '🃏 Flashcards — tap to flip';
+  area.appendChild(fcLabel);
+
+  shuffle(FLASHCARDS_GREET).slice(0, 4).forEach(fc => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="fc-front">
+          <div class="fc-de">${fc.de}</div>
+          <div class="fc-tag">${fc.tag}</div>
+          <div class="fc-tap">👆 tap to see meaning</div>
+        </div>
+        <div class="fc-back">
+          <div class="fc-en">${fc.en}</div>
+          <div class="fc-tag">${fc.tag}</div>
+          <div class="fc-tap">👆 tap to flip back</div>
+        </div>
+      </div>`;
+    card.onclick = () => card.classList.toggle('flipped');
+    area.appendChild(card);
+  });
+
+  // MCQ after flashcards
+  renderSingleMCQ({
+    q: 'Which greeting is used in the evening?',
+    hint: '🌆',
+    options: ['Guten Morgen', 'Guten Tag', 'Guten Abend', 'Hallo'],
+    correct: 2,
+    explain: '"Guten Abend" = Good evening. Morgen = morning, Tag = day/daytime.'
+  }, () => nextRound());
+}
+
+// ============================================================
+// ROUND 2: INTRO MCQ
+// ============================================================
+function renderMCQRound(questions, title, icon) {
+  const intro = makeIntro(icon, title, 'Choose the correct answer for each question.');
+  area.appendChild(intro);
+  const shuffled = shuffle(questions);
+  renderMCQSequence(shuffled, 0, () => nextRound());
+}
+
+function renderMCQSequence(questions, idx, onDone) {
+  if (idx >= questions.length) { onDone(); return; }
+  renderSingleMCQ(questions[idx], () => renderMCQSequence(questions, idx + 1, onDone));
+}
+
+function renderSingleMCQ(q, onNext) {
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  card.innerHTML = `
+    <div class="q-label">📝 Question</div>
+    <div class="q-text">${q.q}</div>
+    <div class="q-hint">💡 ${q.hint}</div>
+    <div class="choices" id="choices-wrap"></div>
+    <div class="feedback" id="fb"></div>
+    <button class="next-btn" id="next-btn">Next →</button>`;
+  area.appendChild(card);
+
+  const wrap = card.querySelector('#choices-wrap');
+  const fb = card.querySelector('#fb');
+  const nextBtn = card.querySelector('#next-btn');
+  let done = false;
+
+  shuffle(q.options.map((o, i) => ({ o, i }))).forEach(({ o, i }) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = o;
+    btn.onclick = (e) => {
+      if (done) return;
+      done = true;
+      wrap.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+      if (i === q.correct) {
+        btn.classList.add('correct');
+        fb.className = 'feedback show ok';
+        fb.innerHTML = `✅ Richtig! ${q.explain}`;
+        awardPoints(10 + state.streak * 2, e);
+      } else {
+        btn.classList.add('wrong');
+        wrap.querySelectorAll('.choice-btn').forEach(b => {
+          if (b.textContent === q.options[q.correct]) b.classList.add('correct');
+        });
+        fb.className = 'feedback show bad';
+        fb.innerHTML = `❌ Falsch. The correct answer: <span class="answer-reveal">${q.options[q.correct]}</span><br><small>${q.explain}</small>`;
+        penalty();
+      }
+      nextBtn.classList.add('show');
+    };
+    wrap.appendChild(btn);
+  });
+
+  nextBtn.onclick = () => {
+    card.remove();
+    onNext();
+  };
+}
+
+// ============================================================
+// ROUND 3: LAENDER (Matching + MCQ)
+// ============================================================
+function renderLaenderRound() {
+  const intro = makeIntro('🌍', 'Länder & Städte', 'Match the German country names to English, then answer questions!');
+  area.appendChild(intro);
+
+  const rule = document.createElement('div');
+  rule.className = 'rule-card';
+  rule.innerHTML = `<h4>📌 Special country articles</h4>
+    Most countries: no article — <b>Ich komme aus <span style="color:var(--accent)">Deutschland</span>.</b><br><br>
+    But some need an article:
+    <span class="chip">die Türkei → aus der Türkei</span>
+    <span class="chip">die Schweiz → aus der Schweiz</span>
+    <span class="chip">die Ukraine → aus der Ukraine</span>
+    <span class="chip">die USA → aus den USA</span>
+    <span class="chip">die Niederlande → aus den Niederlanden</span>`;
+  area.appendChild(rule);
+
+  renderMatchingGame(MATCHING_LAENDER, () => {
+    const shuffled = shuffle(MCQ_LAENDER);
+    renderMCQSequence(shuffled, 0, () => nextRound());
+  });
+}
+
+function renderMatchingGame(pairs, onDone) {
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  const label = document.createElement('div');
+  label.className = 'q-label';
+  label.textContent = '🔗 Match the pairs — click one from each column';
+  card.appendChild(label);
+
+  const grid = document.createElement('div');
+  grid.className = 'match-grid';
+  card.appendChild(grid);
+
+  const fb = document.createElement('div');
+  fb.className = 'feedback';
+  card.appendChild(fb);
+
+  area.appendChild(card);
+
+  const shuffledDE = shuffle(pairs.map(p => p.de));
+  const shuffledEN = shuffle(pairs.map(p => p.en));
+  let selected = null;
+  let matched = 0;
+
+  const deItems = shuffledDE.map(de => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.textContent = '🇩🇪 ' + de;
+    el.dataset.val = de;
+    el.dataset.side = 'de';
+    grid.appendChild(el);
+    return el;
+  });
+
+  const enItems = shuffledEN.map(en => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.textContent = '🇬🇧 ' + en;
+    el.dataset.val = en;
+    el.dataset.side = 'en';
+    grid.appendChild(el);
+    return el;
+  });
+
+  [...deItems, ...enItems].forEach(el => {
+    el.onclick = () => {
+      if (el.classList.contains('matched') || el.classList.contains('locked')) return;
+      if (!selected) {
+        selected = el;
+        el.classList.add('selected');
+      } else if (selected === el) {
+        el.classList.remove('selected');
+        selected = null;
+      } else {
+        // Check match
+        const pair1 = selected;
+        const pair2 = el;
+        const deSide = pair1.dataset.side === 'de' ? pair1 : pair2;
+        const enSide = pair1.dataset.side === 'en' ? pair1 : pair2;
+        const correctPair = pairs.find(p => p.de === deSide.dataset.val);
+        if (correctPair && correctPair.en === enSide.dataset.val) {
+          pair1.classList.remove('selected');
+          pair1.classList.add('matched');
+          pair2.classList.add('matched');
+          state.score += 5;
+          matched++;
+          updateHUD();
+          selected = null;
+          if (matched === pairs.length) {
+            fb.className = 'feedback show ok';
+            fb.innerHTML = '🎉 All matched! Perfect!';
+            setTimeout(onDone, 1200);
+          }
+        } else {
+          pair1.classList.remove('selected');
+          pair1.classList.add('wrong-match');
+          pair2.classList.add('wrong-match');
+          penalty();
+          setTimeout(() => {
+            pair1.classList.remove('wrong-match');
+            pair2.classList.remove('wrong-match');
+          }, 600);
+          selected = null;
+        }
+      }
+    };
+  });
+}
+
+// ============================================================
+// ROUND 4: BERUFE (MCQ + fill)
+// ============================================================
+function renderBerufeRound() {
+  const intro = makeIntro('💼', 'Berufe — Professions', 'Learn how professions change for male/female in German!');
+  area.appendChild(intro);
+
+  const rule = document.createElement('div');
+  rule.className = 'rule-card';
+  rule.innerHTML = `<h4>📌 Male vs Female Professions</h4>
+    In German, most professions have two forms:<br><br>
+    <table>
+      <tr><th>Masculine (er)</th><th>Feminine (sie)</th><th>English</th></tr>
+      <tr><td>Lehrer</td><td>Lehr<b style="color:var(--accent2)">erin</b></td><td>teacher</td></tr>
+      <tr><td>Arzt</td><td><b style="color:var(--accent)">Ärzt</b><b style="color:var(--accent2)">in</b></td><td>doctor</td></tr>
+      <tr><td>Informatiker</td><td>Informatiker<b style="color:var(--accent2)">in</b></td><td>IT specialist</td></tr>
+      <tr><td>Student</td><td>Student<b style="color:var(--accent2)">in</b></td><td>student</td></tr>
+    </table>
+    <br>The feminine form usually adds <span class="chip">-in</span>. Sometimes there's also an umlaut change (a→ä).`;
+  area.appendChild(rule);
+
+  const shuffledMCQ = shuffle(MCQ_BERUFE);
+  renderMCQSequence(shuffledMCQ, 0, () => {
+    // fill blank: profession from study
+    const fills = [
+      { sentence: 'Franziska studiert Malerei. Sie ist ___', answer: 'Malerin', hint: 'female painter' },
+      { sentence: 'Andreas studiert Informatik. Er ist ___', answer: 'Informatiker', hint: 'male IT specialist' },
+    ];
+    renderFillSequence(fills, 0, () => nextRound());
+  });
+}
+
+// ============================================================
+// ROUND 5: VERBEN CONJUGATION (Fill in)
+// ============================================================
+function renderVerbenRound() {
+  const intro = makeIntro('📝', 'Verb Conjugation', 'Fill in the correct verb form for each sentence!');
+  area.appendChild(intro);
+
+  const rule = document.createElement('div');
+  rule.className = 'rule-card';
+  rule.innerHTML = `<h4>📌 Verb Conjugation Table</h4>
+    <table>
+      <tr><th>Pronoun</th><th>kommen</th><th>wohnen</th><th>heißen</th><th>sein</th></tr>
+      <tr><td>ich</td><td>komm<b style="color:var(--accent2)">e</b></td><td>wohn<b style="color:var(--accent2)">e</b></td><td>heiß<b style="color:var(--accent2)">e</b></td><td style="color:var(--accent)">bin</td></tr>
+      <tr><td>du</td><td>komm<b style="color:var(--accent2)">st</b></td><td>wohn<b style="color:var(--accent2)">st</b></td><td>heiß<b style="color:var(--accent2)">t</b></td><td style="color:var(--accent)">bist</td></tr>
+      <tr><td>er/sie</td><td>komm<b style="color:var(--accent2)">t</b></td><td>wohn<b style="color:var(--accent2)">t</b></td><td>heiß<b style="color:var(--accent2)">t</b></td><td style="color:var(--accent)">ist</td></tr>
+      <tr><td>sie (pl.)</td><td>komm<b style="color:var(--accent2)">en</b></td><td>wohn<b style="color:var(--accent2)">en</b></td><td>heiß<b style="color:var(--accent2)">en</b></td><td style="color:var(--accent)">sind</td></tr>
+      <tr><td>Sie (formal)</td><td>komm<b style="color:var(--accent2)">en</b></td><td>wohn<b style="color:var(--accent2)">en</b></td><td>heiß<b style="color:var(--accent2)">en</b></td><td style="color:var(--accent)">sind</td></tr>
+    </table>
+    <br>⚠️ <b>sein</b> (to be) is irregular — memorise it!`;
+  area.appendChild(rule);
+
+  const shuffled = shuffle(FILL_VERBEN);
+  renderFillSequence(shuffled.slice(0, 6), 0, () => nextRound());
+}
+
+function renderFillSequence(items, idx, onDone) {
+  if (idx >= items.length) { onDone(); return; }
+  renderSingleFill(items[idx], () => renderFillSequence(items, idx + 1, onDone));
+}
+
+function renderSingleFill(item, onNext) {
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  const verb = item.verb ? `<span class="chip">${item.verb}</span>` : '';
+  const pronoun = item.pronoun ? `<span class="chip">${item.pronoun}</span>` : '';
+  card.innerHTML = `
+    <div class="q-label">✏️ Fill in the blank</div>
+    <div class="q-text" style="margin-bottom:6px">${item.sentence}</div>
+    ${item.verb ? `<div class="q-hint">Verb: ${verb} &nbsp; Pronoun: ${pronoun}</div>` : `<div class="q-hint">💡 ${item.hint}</div>`}
+    <div class="text-input-wrap">
+      <input type="text" id="fill-input" placeholder="Type here…" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="submit-btn" id="fill-submit">Check ✓</button>
+    </div>
+    <div class="feedback" id="fb"></div>
+    <button class="next-btn" id="next-btn">Next →</button>`;
+  area.appendChild(card);
+
+  const input = card.querySelector('#fill-input');
+  const submitBtn = card.querySelector('#fill-submit');
+  const fb = card.querySelector('#fb');
+  const nextBtn = card.querySelector('#next-btn');
+  input.focus();
+
+  function checkAnswer(e) {
+    const val = input.value.trim().toLowerCase();
+    const correct = item.answer.toLowerCase();
+    submitBtn.disabled = true;
+    input.disabled = true;
+    if (val === correct) {
+      input.classList.add('correct-i', 'ok');
+      fb.className = 'feedback show ok';
+      fb.innerHTML = `✅ Richtig! The answer is <b>${item.answer}</b>`;
+      awardPoints(15 + state.streak * 2, e || null);
+    } else {
+      input.classList.add('wrong-i', 'bad');
+      fb.className = 'feedback show bad';
+      fb.innerHTML = `❌ Not quite. The correct form is: <span class="answer-reveal">${item.answer}</span>`;
+      penalty();
+    }
+    nextBtn.classList.add('show');
+  }
+
+  submitBtn.onclick = checkAnswer;
+  input.onkeydown = (e) => { if (e.key === 'Enter') checkAnswer(e); };
+  nextBtn.onclick = () => { card.remove(); onNext(); };
+}
+
+// ============================================================
+// ROUND 6: SPRACHEN
+// ============================================================
+function renderSprachenRound() {
+  const intro = makeIntro('🗣️', 'Sprachen — Languages', 'Country → Language, and the verb "sprechen"!');
+  area.appendChild(intro);
+
+  const rule = document.createElement('div');
+  rule.className = 'rule-card';
+  rule.innerHTML = `<h4>📌 sprechen (to speak) — irregular!</h4>
+    <table>
+      <tr><th>Pronoun</th><th>Form</th></tr>
+      <tr><td>ich</td><td>spr<b style="color:var(--accent2)">e</b>che</td></tr>
+      <tr><td>du</td><td>spr<b style="color:var(--accent)">i</b>chst ⚠️</td></tr>
+      <tr><td>er/sie/es</td><td>spr<b style="color:var(--accent)">i</b>cht ⚠️</td></tr>
+      <tr><td>sie/Sie</td><td>spr<b style="color:var(--accent2)">e</b>chen</td></tr>
+    </table>
+    <br>The e→i change only happens for <span class="chip">du</span> and <span class="chip">er/sie</span>!`;
+  area.appendChild(rule);
+
+  const shuffledMCQ = shuffle(MCQ_SPRACHEN);
+  renderMCQSequence(shuffledMCQ, 0, () => {
+    renderFillSequence(shuffle(FILL_SPRACHEN).slice(0, 3), 0, () => nextRound());
+  });
+}
+
+// ============================================================
+// NEXT ROUND / CONGRATS
+// ============================================================
+function nextRound() {
+  if (!state.roundsDone.includes(state.currentRound)) state.roundsDone.push(state.currentRound);
+  if (state.currentRound < ROUNDS.length - 1) {
+    state.currentRound++;
+    state.stepInRound = 0;
+    state.answered = false;
+    renderRound();
+  } else {
+    showCongrats();
+  }
+}
+
+function showCongrats() {
+  area.innerHTML = '';
+  const div = document.createElement('div');
+  div.className = 'congrats-screen show';
+  const grade = state.score >= 200 ? '🌟 Ausgezeichnet!' : state.score >= 120 ? '👍 Sehr gut!' : '💪 Gut gemacht!';
+  div.innerHTML = `
+    <div class="trophy">🏆</div>
+    <h2>Kapitel 1 Complete!</h2>
+    <p>${grade} You've finished all 6 rounds of Chapter 1.</p>
+    <div class="final-score-box">
+      <div class="big">${state.score}</div>
+      <small>Total Points</small>
+    </div>
+    <br>
+    <p style="margin-bottom:20px;color:var(--muted)">Lives remaining: ${'❤️'.repeat(state.lives)}${'🖤'.repeat(3-state.lives)}</p>
+    <button class="restart-btn" onclick="restartGame()">🔄 Play Again</button>
+    <br><br>
+    <p style="color:var(--muted);font-size:0.85rem">Come back for Kapitel 2! 🇩🇪</p>`;
+  area.appendChild(div);
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('progress-label').textContent = '🎉 All rounds complete!';
+}
+
+function restartGame() {
+  state = { currentRound: 0, score: 0, lives: 3, streak: 0, stepInRound: 0, answered: false, matchSel: null, matchDone: 0, roundsDone: [] };
+  updateHUD();
+  renderRound();
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function makeIntro(icon, title, desc) {
+  const div = document.createElement('div');
+  div.className = 'section-intro';
+  div.innerHTML = `<div class="icon">${icon}</div><h2>${title}</h2><p>${desc}</p>`;
+  return div;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+updateHUD();
+renderRound();
+</script>
+</body>
+</html>
